@@ -8,9 +8,7 @@ A Python port of [RetireJS](https://github.com/RetireJS/retire.js) - A tool to s
 
 ## Description
 
-UnretiredJS is a Python library that helps you identify known vulnerabilities in JavaScript libraries used in your web applications. It's a port of the popular RetireJS tool, bringing the same powerful vulnerability scanning capabilities to Python projects.
-
-> **Note**: This is a fork of [FallibleInc/retirejslib](https://github.com/FallibleInc/retirejslib), maintained and updated with additional features and improvements.
+UnretiredJS is a Python library that helps you identify known vulnerabilities in JavaScript libraries used in your web applications. It's a modern Python port of the popular RetireJS tool, bringing fast, offline vulnerability scanning capabilities to Python projects.
 
 ## Installation
 

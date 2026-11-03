@@ -5,32 +5,37 @@ on:
   schedule:
     - cron: '0 0 1 * *' # Runs at 00:00 UTC on the 1st day of every month
 
+permissions:
+  contents: write
+
 jobs:
   update_data:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.9'
+          python-version: '3.11'
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install requests tomli
-          # Add other dependencies here if needed by the script in the future
+          python -m pip install --upgrade pip build twine tomli requests
 
       - name: Run update script
         run: python src/unretiredjs/update_vulnerabilities.py
 
+      - name: Run test suite
+        run: |
+          PYTHONPATH=src python src/unretiredjs/test_retirejs.py
+
       - name: Update version and commit changes
         id: version_update
         run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git config --global user.name 'Anand Kumar'
+          git config --global user.email 'anandseth444@gmail.com'
           # Check if there are changes in the specific file
           if ! git diff --quiet src/unretiredjs/vulnerabilities.py; then
             # Read current version from pyproject.toml
@@ -57,33 +62,12 @@ jobs:
             echo "has_changes=false" >> $GITHUB_OUTPUT
           fi
 
-      # - name: Create GitHub Release
-      #   if: steps.version_update.outputs.has_changes == 'true'
-      #   uses: softprops/action-gh-release@v1
-      #   with:
-      #     tag_name: v${{ steps.version_update.outputs.new_version }}
-      #     name: Release v${{ steps.version_update.outputs.new_version }}
-      #     body: |
-      #       ## What's Changed
-      #       
-      #       - Updated RetireJS vulnerability database
-      #       
-      #       ### Changelog
-      #       ```markdown
-      #       $(cat CHANGELOG.md | sed -n '/^## \['${{ steps.version_update.outputs.new_version }}'\]/,/^## \[/p' | sed '$d')
-      #       ```
-      #     draft: false
-      #     prerelease: false
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # - name: Notify on Success
-      #   if: steps.version_update.outputs.has_changes == 'true'
-      #   uses: rtCamp/action-slack-notify@v2
-      #   env:
-      #     SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-      #     SLACK_CHANNEL: releases
-      #     SLACK_COLOR: good
-      #     SLACK_TITLE: New Release Published
-      #     SLACK_MESSAGE: "New version v${{ steps.version_update.outputs.new_version }} has been released with updated vulnerability data."
-      #     SLACK_FOOTER: "GitHub Actions"
+      - name: Build and Publish to PyPI
+        if: steps.version_update.outputs.has_changes == 'true' && env.PYPI_API_TOKEN != ''
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+          PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+        run: |
+          python -m build
+          python -m twine upload dist/*

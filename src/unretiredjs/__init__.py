@@ -1,16 +1,28 @@
 import logging
-from .retirejs import (scan_endpoint,
-					   scan_file_content,
-					   scan_filename,
-					   scan_uri,
-					   is_vulnerable)
+from logging import NullHandler
+from .retirejs import (
+    check,
+    is_vulnerable,
+    scan,
+    scan_endpoint,
+    scan_file_content,
+    scan_filename,
+    scan_uri,
+    unique,
+)
 
-try:  # Python 2.7+
-    from logging import NullHandler
-except ImportError:
-    class NullHandler(logging.Handler):
-        def emit(self, record):
-            pass
+__version__ = "1.4.15"
+
+__all__ = [
+    "check",
+    "is_vulnerable",
+    "scan",
+    "scan_endpoint",
+    "scan_file_content",
+    "scan_filename",
+    "scan_uri",
+    "unique",
+    "__version__",
+]
 
 logging.getLogger(__name__).addHandler(NullHandler())
-

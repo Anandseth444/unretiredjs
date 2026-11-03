@@ -45,3 +45,4 @@ coverage.xml
 # Project specific
 benchmark_results.json
 *.log 
+uv.lock
