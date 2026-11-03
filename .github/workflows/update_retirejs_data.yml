@@ -3,7 +3,7 @@ name: Update RetireJS Vulnerability Data
 on:
   workflow_dispatch: # Allows manual triggering
   schedule:
-    - cron: '0 0 1,16 * *' # Runs at 00:00 UTC every 15 days (1st and 16th of each month)
+    - cron: '0 0 * * *' # Runs daily at 00:00 UTC
 
 permissions:
   contents: write
