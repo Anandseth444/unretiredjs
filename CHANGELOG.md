@@ -1,3 +1,9 @@
+## [1.4.16] - 2026-11-03
+
+### Changed
+- Bumped version to 1.4.16.
+- Verified RetireJS database sync and persistent Next.js CVE-2026-96889 support.
+
 ## [1.4.15] - 2026-11-03
 
 ### Added
