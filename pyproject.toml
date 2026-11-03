@@ -24,8 +24,8 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Anandseth444/retirejslib"
-Changelog = "https://github.com/Anandseth444/retirejslib/blob/master/CHANGELOG.md"
+Homepage = "https://github.com/Anandseth444/unretiredjs"
+Changelog = "https://github.com/Anandseth444/unretiredjs/blob/master/CHANGELOG.md"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
