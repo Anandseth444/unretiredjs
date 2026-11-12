@@ -9678,7 +9678,7 @@ definitions = {   '@angular/core': {   'extractors': {   'filecontent': [   '/\\
                                         {   'atOrAbove': '2.0.3',
                                             'below': '2.0.4',
                                             'cwe': ['CWE-74', 'CWE-79'],
-                                            'identifiers': {   'CVE': ['CVE-2025-15056'],
+                                            'identifiers': {   'CVE': ['CVE-2025-15056', 'CVE-2026-120350'],
                                                                'githubID': 'GHSA-v3m3-f69x-jf25',
                                                                'summary': 'Quill 2.0.3 is vulnerable to Cross-Site '
                                                                           'Scripting (XSS) via insufficient data '
