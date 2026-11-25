@@ -3723,14 +3723,9 @@ definitions = {   '@angular/core': {   'extractors': {   'filecontent': [   '/\\
                                                    '^http[s]?://cdn.cxense.com/cx.js']},
                       'vulnerabilities': []},
     'easyXDM': {   'extractors': {   'filecontent': [   ' \\* easyXDM\n'
-                                                        ' \\* http://easyxdm.net/(?:\r'
-                                                        '|\n'
-                                                        '|.)+version:"([0-9][0-9.a-z_-]+)"',
-                                                        '@class easyXDM(?:.|\r'
-                                                        '|\n'
-                                                        ')+@version ([0-9][0-9.a-z_-]+)(\r'
-                                                        '|\n'
-                                                        ')'],
+                                                        ' \\* '
+                                                        'http://easyxdm.net/[\\s\\S]+version:"([0-9][0-9.a-z_-]+)"',
+                                                        '@class easyXDM[\\s\\S]+@version ([0-9][0-9.a-z_-]+)(\r|\n)'],
                                      'filename': ['easyXDM-([0-9][0-9.a-z_-]+)(.min)?\\.js'],
                                      'hashes': {'cf266e3bc2da372c4f0d6b2bd87bcbaa24d5a643': '2.4.6'},
                                      'uri': ['/(?:easyXDM-)?([0-9][0-9.a-z_-]+)/easyXDM(\\.min)?\\.js']},

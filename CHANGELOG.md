@@ -1,3 +1,8 @@
+## [1.4.22] - 2026-11-25
+
+### Fixed
+- easyXDM file content patterns used `(?:.|\r|\n)+`, which backtracked for hours in Python's `re` on files where the version line didn't match; they now use `[\s\S]+`.
+
 ## [1.4.21] - 2026-11-24
 
 ### Added

@@ -50,7 +50,16 @@ CUSTOM_EXTRACTOR_OVERRIDES: Dict[str, Dict[str, Dict[str, str]]] = {
         "uri": {
             r"/([0-9][0-9.a-z_-]+)/js/bootstrap(\.min)?\.js": r"/([0-9]+\.[0-9.a-z_-]+)/js/bootstrap(\.min)?\.js",
         }
-    }
+    },
+    # (?:.|\r|\n)+ backtracks for hours in Python's re when the rest of the pattern fails; [\s\S]+ matches the same
+    "easyXDM": {
+        "filecontent": {
+            ' \\* easyXDM\n \\* http://easyxdm.net/(?:\r|\n|.)+version:"([0-9][0-9.a-z_-]+)"':
+                ' \\* easyXDM\n \\* http://easyxdm.net/[\\s\\S]+version:"([0-9][0-9.a-z_-]+)"',
+            '@class easyXDM(?:.|\r|\n)+@version ([0-9][0-9.a-z_-]+)(\r|\n)':
+                '@class easyXDM[\\s\\S]+@version ([0-9][0-9.a-z_-]+)(\r|\n)',
+        }
+    },
 }
 
 # Standalone custom components to merge (if not present upstream)
